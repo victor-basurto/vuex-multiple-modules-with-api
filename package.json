@@ -9,6 +9,7 @@
   "dependencies": {
     "bulma": "^0.9.3",
     "core-js": "^3.6.5",
+    "mobile-device-detect": "^0.4.3",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
