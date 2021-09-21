@@ -37,6 +37,13 @@ export interface IEmployeeData {
 }
 
 /**
+ * Merge all State from Exposed Modules
+ */
+export interface IMergedState extends IRootState {
+	employeeModule: EmployeeStateTypes;
+}
+
+/**
  * ROOT GETTERS
  */
  export interface IRootGettersTypes {
