@@ -9,7 +9,7 @@ import {
 /**
  * Root Store Module Types definition -> useful when managing root store
  */
-export type RootStoreModule<S = IRootState> = Omit<
+export type RootStoreModuleTypes<S = IRootState> = Omit<
 	VuexStore<S>,
 	'commit' | 'getters' | 'dispatch'
 > & {
