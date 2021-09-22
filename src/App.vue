@@ -26,6 +26,7 @@ export default defineComponent({
 			employeesApi.fetchEmployees().then((res: AxiosResponse<IServerResponse>): void => {
 				const { data } = res.data;
 				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data);
+				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.length);
 			});
 		});
 		return {

@@ -1,6 +1,7 @@
 import { ActionTree } from 'vuex';
 import { ROOT_STORE } from '@/store/constants';
 import { IRootState, IEmployeeData, IRootActionsTypes } from '@/store/interfaces';
+import { sleepHelper } from '@/shared/misc';
 /**
  * ROOT ACTIONS
  * @public ROOT ACTIONS
@@ -51,6 +52,9 @@ export const actions: ActionTree<IRootState, IRootState> & IRootActionsTypes = {
 	 * @param {IEmployeeData[]} payload - Employee List
 	 */
 	[ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES]({ commit }, payload: Array<IEmployeeData>) {
-		commit(ROOT_STORE.MUTATIONS.SET_EMPLOYEES, payload);
+		return new Promise(resolve => {
+			commit(ROOT_STORE.MUTATIONS.SET_EMPLOYEES, payload);
+			resolve(payload)
+		})
 	}
 }
