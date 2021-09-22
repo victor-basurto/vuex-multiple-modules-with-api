@@ -21,7 +21,7 @@
 			</tbody>
 		</table>
 		<div class="has-text-right">
-			<span class="is-size-5">Total: {{ employeesCount }}</span>
+			<span class="is-size-5">Total: 0</span>
 		</div>
 	</div>
 </template>
@@ -30,6 +30,5 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
 	name: 'EmployeesTableSkeleton',
-	
 });
 </script>

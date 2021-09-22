@@ -2,36 +2,40 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link><br>
-	<span>Is Mobile device: {{ isMobile }}</span>
+	
   </div>
   <router-view/>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, computed, ComputedRef } from 'vue';
-import { AxiosResponse } from 'axios'
-import { useStore } from './use/useStore';
-import { ROOT_STORE } from './store/constants';
-import employeesApi from './services/employees-api.service'
-import { IEmployeeData, IServerResponse } from './store/interfaces';
+import { AxiosResponse } from 'axios';
+
+import employeesApi from '@/services/employees-api.service';
+
+import { useStore } from '@/use/useStore';
+import { ROOT_STORE } from '@/store/constants';
+import { IEmployeeData, IServerResponse } from '@/store/interfaces';
+
+import { sleepHelper } from '@/shared/misc';
 
 
 export default defineComponent({
 	setup() {
 		const store = useStore();
-		// retrieve value from Store
-		const isMobile: ComputedRef<boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.IS_MOBILE_DEVICE])
 		onMounted(() => {
 			// call API and feed Root State
 			employeesApi.fetchEmployees().then((res: AxiosResponse<IServerResponse>): void => {
 				const { data } = res.data;
-				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data);
-				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.length);
+				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, true);						// set loading to true
+				sleepHelper(1000).then(() => {
+					store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data);					// set employees
+					store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.length);		// set employees count
+					store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);				// set loading state to false
+				});
 			});
 		});
-		return {
-			isMobile
-		}
+		return { }
 	},
 })
 </script>

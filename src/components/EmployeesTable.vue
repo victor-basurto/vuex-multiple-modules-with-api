@@ -30,16 +30,19 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { useStore } from '../use/useStore';
-import { ROOT_STORE } from '../store/constants';
+import { defineComponent, computed, ComputedRef } from 'vue';
+import { useStore } from '@/use/useStore';
+import { ROOT_STORE } from '@/store/constants';
+import { IEmployeeData } from '@/store/interfaces';
 
 export default defineComponent({
 	name: 'EmployeesTable',
 	setup() {
 		const store = useStore();
-		const employeesCount = computed(() => store.getters[ROOT_STORE.GETTERS.EMPLOYEES_COUNT]);
-		const employees = computed(() => store.getters[ROOT_STORE.GETTERS.EMPLOYEES]);
+
+		const employeesCount: ComputedRef<number> = computed(() => store.getters[ROOT_STORE.GETTERS.EMPLOYEES_COUNT]);
+		const employees: ComputedRef<IEmployeeData[]> = computed(() => store.getters[ROOT_STORE.GETTERS.EMPLOYEES]);
+		
 		return {
 			employees,
 			employeesCount
