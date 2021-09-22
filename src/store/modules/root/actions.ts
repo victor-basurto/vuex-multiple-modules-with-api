@@ -50,7 +50,7 @@ export const actions: ActionTree<IRootState, IRootState> & IRootActionsTypes = {
 	 * @param {Action} {commit} - action
 	 * @param {IEmployeeData[]} payload - Employee List
 	 */
-	[ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES]({ commit }, payload: IEmployeeData[]) {
+	[ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES]({ commit }, payload: Array<IEmployeeData>) {
 		commit(ROOT_STORE.MUTATIONS.SET_EMPLOYEES, payload);
 	}
 }

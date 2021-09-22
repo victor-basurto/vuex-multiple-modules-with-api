@@ -8,17 +8,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed } from 'vue';
+import { defineComponent, onMounted, computed, ComputedRef } from 'vue';
+import { AxiosResponse } from 'axios'
 import { useStore } from './use/useStore';
 import { ROOT_STORE } from './store/constants';
+import employeesApi from './services/employees-api.service'
+import { IEmployeeData, IServerResponse } from './store/interfaces';
 
 
 export default defineComponent({
 	setup() {
 		const store = useStore();
 		// retrieve value from Store
-		const isMobile = computed(() => store.getters[ROOT_STORE.GETTERS.IS_MOBILE_DEVICE])
-
+		const isMobile: ComputedRef<boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.IS_MOBILE_DEVICE])
+		onMounted(() => {
+			// call API and feed Root State
+			employeesApi.fetchEmployees().then((res: AxiosResponse<IServerResponse>): void => {
+				const { data } = res.data;
+				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data);
+			});
+		});
 		return {
 			isMobile
 		}

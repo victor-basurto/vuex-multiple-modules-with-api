@@ -43,5 +43,5 @@ export const mutations: MutationTree<IRootState> & RootMutationsTypes = {
 	 * @param {IRootState} state - global state
 	 * @param {IEmployeeData[]} payload - Updated employees list
 	 */
-	[ROOT_STORE.MUTATIONS.SET_EMPLOYEES](state: IRootState, payload: IEmployeeData[]) { state.employees = payload; },
+	[ROOT_STORE.MUTATIONS.SET_EMPLOYEES](state: IRootState, payload: Array<IEmployeeData>) { state.employees = payload; },
 }

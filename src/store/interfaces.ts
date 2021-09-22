@@ -8,7 +8,7 @@ import { ROOT_STORE, EMPLOYEE_STORE } from './constants';
 export interface IRootState {
 	root: boolean;
 	loading: boolean;
-	employees: IEmployeeData[];
+	employees: Array<IEmployeeData>;
 	employeesCount: number;
 	version: string;
 	isMobile: boolean;
@@ -21,7 +21,7 @@ export interface IRootState {
 export interface IServerResponse {
 	success: number;
 	message: string;
-	response: IEmployeeData
+	data: Array<IEmployeeData>
 }
 /**
  * EMPLOYEE interface
