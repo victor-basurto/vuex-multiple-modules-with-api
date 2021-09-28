@@ -22,7 +22,7 @@ import { ROOT_STORE } from '@/store/constants';
 
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import EmployeesTable from '@/components/EmployeesTable.vue';
-import EmployeesTableSkeleton from '@/components/EmployeesTableSkeleton.vue'
+import EmployeesTableSkeleton from '@/components/EmployeesTableSkeleton.vue';
 
 export default defineComponent({
 	name: 'Home',

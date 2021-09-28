@@ -1,8 +1,6 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link><br>
-	
+	<NavigationMenu/>
   </div>
   <router-view/>
 </template>
@@ -19,20 +17,24 @@ import { IEmployeeData, IServerResponse } from '@/store/interfaces';
 
 import { sleepHelper } from '@/shared/misc';
 
+import NavigationMenu from '@/components/base/menu/NavigationMenu.vue';
+
 
 export default defineComponent({
+	components: {
+		NavigationMenu
+	},
 	setup() {
 		const store = useStore();
 		onMounted(() => {
 			// call API and feed Root State
-			employeesApi.fetchEmployees().then((res: AxiosResponse<IServerResponse>): void => {
+			employeesApi.fetchEmployees().then(async (res: AxiosResponse<IServerResponse>): Promise<void> => {
 				const { data } = res.data;
-				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, true);						// set loading to true
-				sleepHelper(1000).then(() => {
-					store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data);					// set employees
-					store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.length);		// set employees count
-					store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);				// set loading state to false
-				});
+				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, true);					// set loading to true
+				await sleepHelper(1000);
+				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data);					// set employees
+				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.length);		// set employees count
+				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);				// set loading state to false
 			});
 		});
 		return { }

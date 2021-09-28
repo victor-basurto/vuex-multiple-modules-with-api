@@ -1,7 +1,6 @@
 import { ActionTree } from 'vuex';
 import { ROOT_STORE } from '@/store/constants';
 import { IRootState, IEmployeeData, IRootActionsTypes } from '@/store/interfaces';
-import { sleepHelper } from '@/shared/misc';
 /**
  * ROOT ACTIONS
  * @public ROOT ACTIONS

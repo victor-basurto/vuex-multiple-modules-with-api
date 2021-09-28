@@ -11,6 +11,6 @@
  * @param {Number} ms - Milliseconds
  * @returns Timeout Function
  */
-export const sleepHelper = (ms: number): Promise<number> => 
+export const sleepHelper = async (ms: number): Promise<number> => 
 	new Promise<number>((resolve: (value: number | PromiseLike<number>) => void): number => 
 		setTimeout(resolve, ms))
