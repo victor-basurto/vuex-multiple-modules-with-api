@@ -16,7 +16,7 @@ export default {
 	// async fetchEmployees(page: number = 1, perPage: number = 10): Promise<AxiosResponse<IServerResponse>> {
 	// 	return await rootAPI.get<IServerResponse>(`/employees?pageNumber=${page}&pageSize=${perPage}`);
 	// },
-	async fetchEmployees(): Promise<AxiosResponse> {
+	async fetchEmployees(): Promise<AxiosResponse<IServerResponse>> {
 		return await rootAPI.get<IServerResponse>(`/client`);
 	},
 	async fetchEmployeeById(id: number): Promise<AxiosResponse> {

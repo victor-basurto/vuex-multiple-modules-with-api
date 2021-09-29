@@ -6,19 +6,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed, ComputedRef } from 'vue';
-import { AxiosResponse } from 'axios';
-
-import employeesApi from '@/services/employees-api.service';
+import { defineComponent, onMounted } from 'vue';
+import useEmployeesApi from '@/services/use/useEmployeesApi'
 
 import { useStore } from '@/use/useStore';
 import { ROOT_STORE } from '@/store/constants';
-import { IEmployeeData, IServerResponse } from '@/store/interfaces';
 
 import { sleepHelper } from '@/shared/misc';
 
 import NavigationMenu from '@/components/base/menu/NavigationMenu.vue';
-
 
 export default defineComponent({
 	components: {
@@ -26,16 +22,15 @@ export default defineComponent({
 	},
 	setup() {
 		const store = useStore();
-		onMounted(() => {
-			// call API and feed Root State
-			employeesApi.fetchEmployees().then(async (res: AxiosResponse<IServerResponse>): Promise<void> => {
-				const { data } = res.data;
-				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, true);					// set loading to true
-				await sleepHelper(1000);
-				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data);					// set employees
-				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.length);		// set employees count
-				store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);				// set loading state to false
-			});
+		
+		onMounted(async () => {
+			const { success, message, data, fetchData } = useEmployeesApi();				// call API and feed Root State
+			await fetchData();																// -> feed current reactive ServerResponseState
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, true);						// set loading to true
+			await sleepHelper(1000);
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data.value);				// set employees
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.value.length);	// set employees count
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);					// set loading state to false
 		});
 		return { }
 	},

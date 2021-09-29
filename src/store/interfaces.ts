@@ -21,7 +21,7 @@ export interface IRootState {
 export interface IServerResponse {
 	success: number;
 	message: string;
-	data: Array<IEmployeeData>
+	data: Array<IEmployeeData>;
 }
 /**
  * EMPLOYEE interface
