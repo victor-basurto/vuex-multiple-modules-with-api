@@ -4,13 +4,13 @@
 			<a href="#" class="navbar-item">
 				<img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28"/>
 			</a>
-			<div class="navbar-burger" data-target="navbarBurgerToggler">
+			<div class="navbar-burger" :class="{'is-active': toggleNavbarFlag}" data-target="navbarBurgerToggler" @click="toggleNavbar">
 				<span></span>
 				<span></span>
 				<span></span>
 			</div>
 		</div>
-		<div id="navbarBurgerToggler" class="navbar-menu">
+		<div id="navbarBurgerToggler" class="navbar-menu" :class="{'is-active': toggleNavbarFlag}">
 			<div class="navbar-start">
 				<div class="is-flex is-align-content-stretch" v-for="(navLink, index) in mainNavMenu" :key="index">
 					<router-link class="navbar-item" :to="{path: navLink.url}">{{ navLink.label }}</router-link>
@@ -44,15 +44,20 @@
 	</nav>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { mainNavMenu, INavigationMenu } from './INavigationMenu';
 
 export default defineComponent({
 	name: 'NavigationMenu',
 	setup() {
-
+		const toggleNavbarFlag = ref(false);
+		const toggleNavbar = () => {
+			toggleNavbarFlag.value = !toggleNavbarFlag.value;
+		}
 		return {
-			mainNavMenu
+			mainNavMenu,
+			toggleNavbarFlag,
+			toggleNavbar
 		}
 	}
 })
