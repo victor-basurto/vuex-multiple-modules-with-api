@@ -15,33 +15,33 @@ export const mutations: MutationTree<IRootState> & RootMutationsTypes = {
 	 * @param {IRootState} state - global state
 	 * @param {String} payload - new `string` version
 	 */
-	[ROOT_STORE.MUTATIONS.SET_VERSION](state: IRootState, payload: string) { state.version = payload; },
+	[ROOT_STORE.MUTATIONS.SET_VERSION](state: IRootState, payload: string): void { state.version = payload; },
 	/**
 	 * Updates Current Is Mobile Device
 	 * 
 	 * @param {IRootState} state - global state
 	 * @param {Boolean} payload - true/false
 	 */
-	 [ROOT_STORE.MUTATIONS.SET_IS_MOBILE_DEVICE](state: IRootState, payload: boolean) { state.isMobile = payload; },
+	 [ROOT_STORE.MUTATIONS.SET_IS_MOBILE_DEVICE](state: IRootState, payload: boolean): void { state.isMobile = payload; },
 	 /**
 	 * Updates Current Loading State
 	 * 
 	 * @param {IRootState} state - global state
 	 * @param {Boolean} payload - true/false
 	 */
-	[ROOT_STORE.MUTATIONS.SET_IS_LOADING](state: IRootState, payload: boolean) { state.loading = payload; },
+	[ROOT_STORE.MUTATIONS.SET_IS_LOADING](state: IRootState, payload: boolean): void { state.loading = payload; },
 	/**
 	 * Updates Current Employees Count
 	 * 
 	 * @param {IRootState} state - global state
 	 * @param {Number} payload - new employees count
 	 */
-	 [ROOT_STORE.MUTATIONS.SET_EMPLOYEES_COUNT](state: IRootState, payload: number) { state.employeesCount = payload; },
+	 [ROOT_STORE.MUTATIONS.SET_EMPLOYEES_COUNT](state: IRootState, payload: number): void { state.employeesCount = payload; },
 	 /**
 	 * Updates Current Employees List
 	 * 
 	 * @param {IRootState} state - global state
 	 * @param {IEmployeeData[]} payload - Updated employees list
 	 */
-	[ROOT_STORE.MUTATIONS.SET_EMPLOYEES](state: IRootState, payload: Array<IEmployeeData>) { state.employees = payload; },
+	[ROOT_STORE.MUTATIONS.SET_EMPLOYEES](state: IRootState, payload: Array<IEmployeeData>): void { state.employees = payload; },
 }

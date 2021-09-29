@@ -1,5 +1,5 @@
 import { ActionContext, DispatchOptions } from 'vuex';
-import { ROOT_STORE, EMPLOYEE_STORE } from './constants';
+import { ROOT_STORE, EMPLOYEE_STORE, NAVBAR_STORE } from './constants';
 /**
  * ROOT interface
  * TODO: 
@@ -136,14 +136,49 @@ export interface IEmployeeActionsTypes {
 	[EMPLOYEE_STORE.ACTIONS.UPDATE_EMPLOYEE_BY_ID]({ commit }: AugmentedActionContextEmployee, payload: IEmployeeData): void;
 }
 
-
+/********************* NAVBAR MODULE TYPES **************************/
+/**
+ * NAVBAR State
+ */
+export interface NavbarStateTypes {
+	isNavOpen: boolean;
+}
+/**
+ * NAVBAR MUTATIONS
+ */
+export interface INavbarGetterTypes {
+	[NAVBAR_STORE.GETTERS.TOGGLE_NAVBAR](state: NavbarStateTypes): boolean;
+}
+/**
+ * NAVBAR MUTATIONS `TYPE`
+ */
+export type NavbarMutationsType<S = NavbarStateTypes> = {
+	[NAVBAR_STORE.MUTATIONS.SET_TOGGLE_NAVBAR](state: S, payload: boolean): void;
+}
+/**
+ * AugmentedActionContext for NAVBAR definition
+ */
+export type AugmentedActionContextNavbar = {
+	commit<K extends keyof NavbarMutationsType>(
+		key: K,
+		payload: Parameters<NavbarMutationsType[K]>[1]
+	): ReturnType<NavbarMutationsType[K]>;
+} & Omit<ActionContext<NavbarStateTypes, IRootState>, 'commit'>;
+/**
+ * NAVBAR Actions `TYPE`
+ */
+export interface INavbarActionTypes {
+	[NAVBAR_STORE.ACTIONS.UPDATE_TOGGLE_NABVAR]({ commit }: AugmentedActionContextNavbar, payload: boolean): void;
+}
 /**
  * Wrap Actions and Getters from Modules
  * into `StoreActions` and `StoreGetters`
  */
 export interface StoreActions
 	extends IRootActionsTypes,
-		IEmployeeActionsTypes {}
+		IEmployeeActionsTypes,
+		INavbarActionTypes {}
 export interface StoreGetters
 	extends IRootGettersTypes,
-		IEmployeeGetterTypes {}
+		IEmployeeGetterTypes,
+		INavbarGetterTypes {}

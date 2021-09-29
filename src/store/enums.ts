@@ -23,7 +23,7 @@ export enum RootActions {
 	UPDATE_IS_LOADING = 'UPDATE_IS_LOADING',
 	UPDATE_ROOT_DISPATCH = 'UPDATE_ROOT_DISPATCH'
 }
-/************** ROOT EMPLOYEE ******************/
+/************** EMPLOYEE ******************/
 export enum EmployeeGetters {
 	EMPLOYEE_BY_ID = 'EMPLOYEE_BY_ID',
 	EMPLOYEE_IS_ADMIN = 'EMPLOYEE_IS_ADMIN',
@@ -41,4 +41,14 @@ export enum EmployeeActions {
 	UPDATE_EMPLOYEE_IS_ADMIN = 'UPDATE_EMPLOYEE_IS_ADMIN',
 	UPDATE_EMPLOYEE_IS_ACTIVE = 'UPDATE_EMPLOYEE_IS_ACTIVE',
 	UPDATE_ROOT_DISPATCH = 'UPDATE_ROOT_DISPATCH'
+}
+/************** BASE NAVBAR ******************/
+export enum NavbarGetters {
+	TOGGLE_NAVBAR = 'TOGGLE_NAVBAR'
+}
+export enum NavbarMutations {
+	SET_TOGGLE_NAVBAR = 'SET_TOGGLE_NAVBAR'
+}
+export enum NavbarActions {
+	UPDATE_TOGGLE_NABVAR = 'UPDATE_TOGGLE_NAVBAR'
 }

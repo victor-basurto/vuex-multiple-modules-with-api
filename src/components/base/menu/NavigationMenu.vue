@@ -44,15 +44,18 @@
 	</nav>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, ComputedRef, defineComponent, ref, toRef, unref } from 'vue';
+import { useStore } from '@/use/useStore';
+import { NAVBAR_STORE } from '@/store/constants';
 import { mainNavMenu, INavigationMenu } from './INavigationMenu';
 
 export default defineComponent({
 	name: 'NavigationMenu',
 	setup() {
-		const toggleNavbarFlag = ref(false);
+		const store = useStore();
+		const toggleNavbarFlag: ComputedRef<boolean> = computed(() => store.getters[NAVBAR_STORE.GETTERS.TOGGLE_NAVBAR]);
 		const toggleNavbar = () => {
-			toggleNavbarFlag.value = !toggleNavbarFlag.value;
+			store.dispatch(NAVBAR_STORE.ACTIONS.UPDATE_TOGGLE_NABVAR, (!toggleNavbarFlag.value) ? true : false);
 		}
 		return {
 			mainNavMenu,

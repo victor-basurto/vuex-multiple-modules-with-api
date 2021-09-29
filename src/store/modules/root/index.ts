@@ -4,11 +4,14 @@ import { getters } from './getters';
 import { mutations } from './mutations';
 import { actions } from './actions';
 import { state } from './state';
+
 import EMPLOYEE_MODULE from '../employee';
+import NAVBAR_MODULE from '../base/nav';
 
 // Modules 
 const modules: ModuleTree<IRootState> = {
-	EMPLOYEE_MODULE
+	EMPLOYEE_MODULE,
+	NAVBAR_MODULE
 }
 const root: Module<IRootState, IRootState> = {
 	state,
