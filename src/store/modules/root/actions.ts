@@ -55,5 +55,14 @@ export const actions: ActionTree<IRootState, IRootState> & IRootActionsTypes = {
 			commit(ROOT_STORE.MUTATIONS.SET_EMPLOYEES, payload);
 			resolve(payload)
 		})
+	},
+	[ROOT_STORE.ACTIONS.UPDATE_SHOW_CREATE_MODAL]({ commit }, payload: boolean) {
+		commit(ROOT_STORE.MUTATIONS.SET_SHOW_CREATE_MODAL, payload);
+	},
+	[ROOT_STORE.ACTIONS.UPDATE_EDIT_MODAL]({ commit }, payload: {showModal: true, id: number}) {
+		commit(ROOT_STORE.MUTATIONS.SET_EDIT_MODAL, payload)
+	},
+	[ROOT_STORE.ACTIONS.UPDATE_MODAL]({ commit }, payload: boolean) {
+		commit(ROOT_STORE.MUTATIONS.SET_MODAL, payload);
 	}
 }

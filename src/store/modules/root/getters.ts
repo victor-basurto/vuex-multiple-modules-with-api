@@ -50,5 +50,9 @@ export const getters: GetterTree<IRootState, IRootState> & IRootGettersTypes = {
 	 * @param {IRootState} state - Root State
 	 * @returns IEmployeeData[] - employees
 	 */
-	 [ROOT_STORE.GETTERS.EMPLOYEES]: (state: IRootState): Array<IEmployeeData> => state.employees,
+	[ROOT_STORE.GETTERS.EMPLOYEES]: (state: IRootState): Array<IEmployeeData> => state.employees,
+
+	[ROOT_STORE.GETTERS.SHOW_CREATE_MODAL]: (state: IRootState): boolean => state.showCreateModal,
+	[ROOT_STORE.GETTERS.EDIT_MODAL]: (state: IRootState): boolean => state.showEditModal,
+	[ROOT_STORE.GETTERS.MODAL]: (state: IRootState): boolean => state.showModal,
 }

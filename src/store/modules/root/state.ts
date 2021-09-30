@@ -8,5 +8,9 @@ export const state: IRootState = {
 	employees: [],
 	isMobile: false,
 	loading: false,
-	employeesCount: 0
+	employeesCount: 0,
+	showCreateModal: false,
+	showEditModal: false,
+	showModal: false,
+	editModalById: null
 }

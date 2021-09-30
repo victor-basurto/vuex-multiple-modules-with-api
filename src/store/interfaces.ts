@@ -12,6 +12,10 @@ export interface IRootState {
 	employeesCount: number;
 	version: string;
 	isMobile: boolean;
+	showCreateModal: boolean;
+	showEditModal: boolean;
+	showModal: boolean;
+	editModalById: number | null;
 }
 /**
  * SERVER RESPONSE interface
@@ -52,6 +56,9 @@ export interface IMergedState extends IRootState {
 	[ROOT_STORE.GETTERS.IS_LOADING](state: IRootState): boolean;
 	[ROOT_STORE.GETTERS.EMPLOYEES_COUNT](state: IRootState): number;
 	[ROOT_STORE.GETTERS.EMPLOYEES](state: IRootState): IEmployeeData[];
+	[ROOT_STORE.GETTERS.MODAL](state: IRootState): boolean;
+	[ROOT_STORE.GETTERS.EDIT_MODAL](state: IRootState): boolean;
+	[ROOT_STORE.GETTERS.SHOW_CREATE_MODAL](state: IRootState): boolean;
 }
 /**
  * ROOT MUTATIONS `TYPE`
@@ -62,6 +69,9 @@ export type RootMutationsTypes<S = IRootState> = {
 	[ROOT_STORE.MUTATIONS.SET_IS_LOADING](state: S, payload: boolean): void;
 	[ROOT_STORE.MUTATIONS.SET_EMPLOYEES_COUNT](state: S, payload: number): void;
 	[ROOT_STORE.MUTATIONS.SET_EMPLOYEES](state: S, payload: IEmployeeData[]): void;
+	[ROOT_STORE.MUTATIONS.SET_SHOW_CREATE_MODAL](state: S, payload: boolean): void;
+	[ROOT_STORE.MUTATIONS.SET_EDIT_MODAL](state: S, payload: {showModal: boolean, id: number}): void;
+	[ROOT_STORE.MUTATIONS.SET_MODAL](state: S, payload: boolean): void;
 }
 /**
  * AugmentedActionContext for ROOT definition
@@ -87,6 +97,10 @@ export interface IRootActionsTypes {
 	[ROOT_STORE.ACTIONS.UPDATE_IS_LOADING]({ commit }: AugmentedActionContextRoot, payload: boolean): void;
 	[ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT]({ commit }: AugmentedActionContextRoot, payload: number): void;
 	[ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES]({ commit }: AugmentedActionContextRoot, payload: IEmployeeData[]): void;
+	[ROOT_STORE.ACTIONS.UPDATE_SHOW_CREATE_MODAL]({ commit }: AugmentedActionContextRoot, payload: boolean): void;
+	[ROOT_STORE.ACTIONS.UPDATE_MODAL]({ commit }: AugmentedActionContextRoot, payload: boolean): void;
+	[ROOT_STORE.ACTIONS.UPDATE_EDIT_MODAL]({ commit }: AugmentedActionContextRoot, payload: {showModal: boolean, id: number}): void;
+	
 }
 
 /********************* EMPLOYEE MODULE TYPES **************************/
