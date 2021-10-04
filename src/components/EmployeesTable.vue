@@ -17,13 +17,13 @@
 			</thead>
 			<tbody>
 				<tr v-for="(employee, index) in employees" :key="index">
-					<td class="has-text-weight-semibold">{{ index }}</td>
+					<td class="has-text-weight-semibold">{{ index + 1 }}</td>
 					<td>{{ employee.firstName }}</td>
 					<td>{{ employee.lastName }}</td>
 					<td :class="{'has-text-danger': !employee.isActive}">{{ employee.isActive }}</td>
 					<td :class="{'has-text-danger': !employee.isAdmin}">{{ employee.isAdmin }}</td>
 					<td>
-						<span class="icon" @click="viewData()">
+						<span class="icon" @click="viewData">
 							<i class="fa fa-eye"></i>
 						</span>
 					</td>
@@ -53,10 +53,11 @@ export default defineComponent({
 
 		const employeesCount: ComputedRef<number> = computed(() => store.getters[ROOT_STORE.GETTERS.EMPLOYEES_COUNT]);
 		const employees: ComputedRef<IEmployeeData[]> = computed(() => store.getters[ROOT_STORE.GETTERS.EMPLOYEES]);
-
 		const showModal: ComputedRef<Boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.MODAL]);
+		
 		const viewData = () => {
-			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_MODAL, true);
+			let toggleModal = !showModal.value;
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_MODAL, toggleModal);
 		}
 		
 		return {

@@ -1,6 +1,6 @@
 <template>
-	<div class="modal">
-		<div class="modal-background"></div>
+	<div class="modal" :class="{'is-active': showModal}">
+		<div class="modal-background" @click="closeModal"></div>
 		<div class="modal-content">
 			<h1>Test Modal</h1>
 			<div class="card">
@@ -44,8 +44,10 @@ export default defineComponent({
 	},
 	setup(props) {
 		const store = useStore();
+		// const showModal: ComputedRef<Boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.MODAL]);
 		const closeModal = () => {
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_SHOW_CREATE_MODAL, false);
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_MODAL, false);
 		}
 		return {
 			closeModal
