@@ -64,11 +64,19 @@ export default defineComponent({
 	},
 	setup(props) {
 		const store = useStore();
-		const toggleNavbarFlag: ComputedRef<boolean> = computed(() => store.getters[NAVBAR_STORE.GETTERS.TOGGLE_NAVBAR]);
-		const toggleNavbar = () => {
+		const toggleNavbarFlag: ComputedRef<boolean> = computed(() => store.getters[NAVBAR_STORE.GETTERS.TOGGLE_NAVBAR]); // get navFlag from Global State
+		/**
+		 * Toggle Navbar State - Smaller Screen
+		 * @description opens navbar on smaller screens
+		 */
+		const toggleNavbar = (): void => {
 			store.dispatch(NAVBAR_STORE.ACTIONS.UPDATE_TOGGLE_NABVAR, (!toggleNavbarFlag.value) ? true : false);
 		}
-		const toggleDarkMode = () => {
+		/**
+		 * Toggles DarkMode State - Global State
+		 * @description set dark/light mode
+		 */
+		const toggleDarkMode = (): void => {
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, (!props.darkMode) ? true : false);
 		}
 		

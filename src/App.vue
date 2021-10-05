@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, watch } from 'vue';
+import { computed, ComputedRef, defineComponent, onMounted, watch } from 'vue';
 import useEmployeesApi from '@/services/use/useEmployeesApi'
 
 import { useStore } from '@/use/useStore';
@@ -22,9 +22,7 @@ export default defineComponent({
 	},
 	setup() {
 		const store = useStore();
-		const darkMode = computed(() => {
-			return store.getters[ROOT_STORE.GETTERS.LIGHT_DARK_MODE];
-		})
+		const darkMode: ComputedRef<Boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.LIGHT_DARK_MODE]);	// get DarkMode from Global State
 		
 		onMounted(async () => {
 			const { success, message, data, fetchData } = useEmployeesApi();				// call API and feed Root State
@@ -35,9 +33,14 @@ export default defineComponent({
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.value.length);	// set employees count
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);					// set loading state to false
 			
-			let bodyElement = document.body;
+			const currentTheme = (localStorage.getItem('theme') === 'dark') ? true : false;	// get theme from localStorage
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, currentTheme);		// set theme based on user preferences
+			
+			let bodyElement: HTMLElement = document.body;
 			bodyElement.classList.add('app-background');
+			
 		});
+		// Watch for `DarkMode` changes and set changes to `localStorage`
 		watch(darkMode, () => {
 			let htmlElement = document.documentElement;
 			if (darkMode.value) {
