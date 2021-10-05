@@ -12,5 +12,6 @@ export const state: IRootState = {
 	showCreateModal: false,
 	showEditModal: false,
 	showModal: false,
-	editModalById: null
+	editModalById: null,
+	darkMode: false
 }

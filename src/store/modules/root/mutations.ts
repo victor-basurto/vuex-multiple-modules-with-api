@@ -44,6 +44,10 @@ export const mutations: MutationTree<IRootState> & RootMutationsTypes = {
 	 * @param {IEmployeeData[]} payload - Updated employees list
 	 */
 	[ROOT_STORE.MUTATIONS.SET_EMPLOYEES](state: IRootState, payload: Array<IEmployeeData>): void { state.employees = payload; },
+	/**
+	 * TODO:
+	 * 	ADD COMMENTS TO METHODS BELOW 
+	 */
 	[ROOT_STORE.MUTATIONS.SET_SHOW_CREATE_MODAL](state: IRootState, payload: boolean): void { state.showCreateModal = payload; },
 	[ROOT_STORE.MUTATIONS.SET_EDIT_MODAL](state: IRootState, {showModal, id}): void {
 		state.showEditModal = showModal;
@@ -52,4 +56,7 @@ export const mutations: MutationTree<IRootState> & RootMutationsTypes = {
 	[ROOT_STORE.MUTATIONS.SET_MODAL](state: IRootState, payload: boolean): void {
 		state.showModal = payload;
 	},
+	[ROOT_STORE.MUTATIONS.SET_LIGHT_DARK_MODE](state: IRootState, payload: boolean): void {
+		state.darkMode = payload;
+	}
 }

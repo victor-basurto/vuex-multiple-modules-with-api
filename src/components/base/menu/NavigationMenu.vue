@@ -37,6 +37,10 @@
 								<span>Download</span>
 							</a>
 						</p>
+						<p class="control is-flex is-align-items-center">
+							<span class="icon" v-if="darkMode" @click="toggleDarkMode"><i class="fas fa-sun"></i></span>
+							<span class="icon" v-else @click="toggleDarkMode"><i class="fas fa-moon"></i></span>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -48,19 +52,31 @@ import { computed, ComputedRef, defineComponent, ref, toRef, unref } from 'vue';
 import { useStore } from '@/use/useStore';
 import { NAVBAR_STORE } from '@/store/constants';
 import { mainNavMenu, INavigationMenu } from './INavigationMenu';
+import { ROOT_STORE } from '../../../store/constants';
 
 export default defineComponent({
 	name: 'NavigationMenu',
-	setup() {
+	props: {
+		darkMode: {
+			type: Boolean,
+			required: true
+		}
+	},
+	setup(props) {
 		const store = useStore();
 		const toggleNavbarFlag: ComputedRef<boolean> = computed(() => store.getters[NAVBAR_STORE.GETTERS.TOGGLE_NAVBAR]);
 		const toggleNavbar = () => {
 			store.dispatch(NAVBAR_STORE.ACTIONS.UPDATE_TOGGLE_NABVAR, (!toggleNavbarFlag.value) ? true : false);
 		}
+		const toggleDarkMode = () => {
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, (!props.darkMode) ? true : false);
+		}
+		
 		return {
 			mainNavMenu,
 			toggleNavbarFlag,
-			toggleNavbar
+			toggleNavbar,
+			toggleDarkMode
 		}
 	}
 })

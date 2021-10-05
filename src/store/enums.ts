@@ -9,6 +9,7 @@ export enum RootGetters {
 	SHOW_CREATE_MODAL = 'SHOW_CREATE_MODAL',
 	EDIT_MODAL = 'EDIT_MODAL',
 	MODAL = 'MODAL',
+	LIGHT_DARK_MODE = 'LIGHT_DARK_MODE'
 }
 export enum RootMutations {
 	SET_VERSION = 'SET_VERSION',
@@ -20,6 +21,7 @@ export enum RootMutations {
 	SET_SHOW_CREATE_MODAL = 'SET_SHOW_CREATE_MODAL',
 	SET_EDIT_MODAL = 'SET_EDIT_MODAL',
 	SET_MODAL = 'SET_MODAL',
+	SET_LIGHT_DARK_MODE = 'SET_LIGHT_DARK_MODE'
 }
 export enum RootActions {
 	UPDATE_VERSION = 'UPDATE_VERSION',
@@ -31,6 +33,7 @@ export enum RootActions {
 	UPDATE_SHOW_CREATE_MODAL = 'UPDATE_SHOW_CREATE_MODAL',
 	UPDATE_EDIT_MODAL = 'UPDATE_EDIT_MODAL',
 	UPDATE_MODAL = 'UPDATE_MODAL',
+	UPDATE_LIGHT_DARK_MODE = 'UPDATE_LIGHT_DARK_MODE'
 }
 /************** EMPLOYEE ******************/
 export enum EmployeeGetters {

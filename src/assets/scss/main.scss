@@ -26,4 +26,13 @@ $colors: map-merge($colors, $addColors);
 
 @import "~bulma";
 // @import "~buefy/src/scss/buefy";
-// 4. Provide custom buefy overrides and site styles here
+
+// Overrides and Custom CSS
+:root {
+	--app-background-color: #fff;
+	--dynamic-title-color: #363636;
+	--dynamic-subtitle-color: #4a4a4a;
+}
+@import 'theme/module'; // CSS Themes -> Should be After `:root`
+
+.app-background { background-color: var(--app-background-color); }

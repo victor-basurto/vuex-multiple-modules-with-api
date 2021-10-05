@@ -1,12 +1,12 @@
 <template>
   <div id="nav">
-	<NavigationMenu/>
+	<NavigationMenu :darkMode="darkMode" />
   </div>
   <router-view/>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { computed, defineComponent, onMounted, watch } from 'vue';
 import useEmployeesApi from '@/services/use/useEmployeesApi'
 
 import { useStore } from '@/use/useStore';
@@ -22,6 +22,9 @@ export default defineComponent({
 	},
 	setup() {
 		const store = useStore();
+		const darkMode = computed(() => {
+			return store.getters[ROOT_STORE.GETTERS.LIGHT_DARK_MODE];
+		})
 		
 		onMounted(async () => {
 			const { success, message, data, fetchData } = useEmployeesApi();				// call API and feed Root State
@@ -31,8 +34,23 @@ export default defineComponent({
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data.value);				// set employees
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.value.length);	// set employees count
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);					// set loading state to false
+			
+			let bodyElement = document.body;
+			bodyElement.classList.add('app-background');
 		});
-		return { }
+		watch(darkMode, () => {
+			let htmlElement = document.documentElement;
+			if (darkMode.value) {
+				localStorage.setItem('theme', 'dark');
+				htmlElement.setAttribute('theme', 'dark');
+			} else {
+				localStorage.setItem('theme', 'light');
+				htmlElement.setAttribute('theme', 'light');
+			}
+		})
+		return { 
+			darkMode
+		}
 	},
 })
 </script>
