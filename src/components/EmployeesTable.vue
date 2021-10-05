@@ -39,7 +39,7 @@
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
 import { useStore } from '@/use/useStore';
-import { ROOT_STORE } from '../store/constants';
+import { ROOT_STORE } from '@/store/constants';
 import { IEmployeeData } from '@/store/interfaces';
 import Modal from '../components/base/modal/Modal.vue';
 
