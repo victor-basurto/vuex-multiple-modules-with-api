@@ -1,5 +1,5 @@
 <template>
-	<nav class="navbar is-transparent">
+	<nav class="navbar is-transparent set-transparent is-fixed-top">
 		<div class="navbar-brand">
 			<a href="#" class="navbar-item">
 				<img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28"/>

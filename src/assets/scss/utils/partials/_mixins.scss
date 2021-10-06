@@ -1,0 +1,219 @@
+/* darken color 10% */
+@mixin darken-color($color) {
+	color: darken($color, 10%);
+}
+/* lighten color 10% */
+@mixin lighten-color($color) {
+	color: darken($color, 10%);
+}
+/* add AUTO margin */
+@mixin push--auto {
+	margin: {
+		left: auto;
+		right: auto;
+	}
+}
+/* pseudo elements */
+@mixin pseudo($display: null, $pos: null, $content: null, $top: null, $right: null, $left: null, $bottom: null) {
+	content: $content;
+	display: $display;
+	position: $pos;
+	top: $top;
+	right: $right;
+	left: $left;
+	bottom: $bottom;
+}
+
+/* placeholders */
+@mixin  input-place-holder {
+	&.placeholder { @content; }
+	&:-moz-placeholder { @content; }
+	&::-moz-placeholder { @content; }
+	&:-ms-input-placeholder { @content; }
+	&::-webkit-input-placeholder { @content; }
+}
+
+/* Div Dimensions */
+@mixin divDimensions($maxh: null, $maxw: null, $minh: null, $minw: null, $h: null, $w: null) {
+	max-height: $maxh;
+	max-width: $maxw;
+	min-height: $minh;
+	min-width: $minw;
+	height: $h;
+	width: $w;
+}
+
+/* element positioning */
+@mixin positioning($pos: absolute, $top: null, $left: null, $right: null, $bottom: null, $z: null) {
+	position: $pos;
+	top: $top;
+	left: $left;
+	right: $right;
+	bottom: $bottom;
+	z-index: $z;
+}
+
+/* flex positioning */
+@mixin flex-element($direction: null, $dir: null) {
+	display: flex;
+	flex-direction: $dir;
+	@if $direction == vertical {
+		align-items: center;
+	} @else if $direction == horizontal {
+		justify-content: center;
+	} @else {
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+/* font variant */
+@mixin font-type($family: null, $size: null, $thikness: null, $color: null, $lh: null, $ls: null, $txtTrans: null) {
+	font-family: $family !important;
+	font-size: $size;
+	font-weight: $thikness;
+	color: $color;
+	line-height: $lh;
+	letter-spacing: $ls;
+	text-transform: $txtTrans;
+}
+
+/* animation transitions */
+@mixin transition($args...) {
+	-webkit-transition: $args;
+	-moz-transition: $args;
+	-ms-transition: $args;
+	-o-transition: $args;
+}
+
+/* responsive media queries - in case we use it. */
+@mixin screen($size) {
+	$desktop: "(min-width: 1024px)";
+	$tablet: "(min-width: 768px) and (max-width: 1023px)";
+	$mobile: "(max-width: 767px)";
+	@if $size == desktop {
+		@media #{$desktop} {
+			@content;
+		}
+	} @else if $size == tablet {
+		@media #{$tablet} {
+			@content;
+		}
+	} @else if $size == mobile {
+		@media #{$mobile} {
+			@content;
+		}
+	}
+}
+
+/* create arrows */
+@mixin arrow-up($color) {
+	width: 0;
+	height: 0;
+	border-left: 105px solid transparent;
+	border-right: 105px solid transparent;
+	border-bottom: 77px solid $color;
+	position: absolute;
+	bottom: 50px;
+}
+@mixin arrow-down($color) {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 47px solid $color;
+	position: absolute;
+	bottom: -31px;
+	left: 60px;
+}
+
+@mixin arrow-left($color) {
+	position: absolute;
+	width: 0;
+    height: 0;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+
+	border-right:10px solid blue;
+}
+@mixin dropdown-arrow($color: null, $w: null, $h: null, $bl: null, $br: null, $bb: null, $pos: null, $bottom: null, $top: null, $left: null, $right: null ) {
+	width: $w;
+    height: $h;
+    border-left: $bl solid transparent;
+    border-right: $br solid transparent;
+    border-bottom: $bb solid $color;
+	position: $pos;
+	top: $top;
+	bottom: $bottom;
+	left: $left;
+	right: $right;
+}
+
+@mixin shadowBox($values...) {
+	@each $var in $values {
+		-webkit-box-shadow: #{$var};
+		-moz-box-shadow: #{$var};
+		-ms-box-shadow: #{$var};
+		-o-box-shadow: #{$var};
+		box-shadow: #{$var};
+	}
+}
+
+@mixin transformBox($pos: null, $right: null, $left: null, $originX: null, $originY: null, $rotate: null, $color: null, $w: null, $h: null) {
+	position: $pos;
+	right: $right;
+	left: $left;
+	background-color:$color;
+	width: $w;
+	height: $h;
+	-webkit-transform-origin: $originY $originX;
+	-moz-transform-origin: $originY $originX;
+	-ms-transform-origin: $originY $originX;
+	-o-transform-origin: $originY $originX;
+	transform-origin: $originY $originX;
+
+	-webkit-transform: rotate($rotate);
+	-moz-transform: rotate($rotate);
+	-ms-transform: rotate($rotate);
+	-o-transform: rotate($rotate);
+	transform: rotate($rotate);
+}
+// general image cover
+@mixin image-cover($attachement) {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-image: $attachement;
+}
+// truncate one line
+@mixin truncate($width) {
+	width: $width;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+// truncate paragraph
+@mixin truncate-paragraph($font-size, $line-height, $lines) {
+	display: block;	
+	height: ($font-size*$line-height*$lines) - 3px;
+	font-size: $font-size;
+	line-height: $line-height;
+	line-clamp: $lines;
+	-moz-box-orient: vertical;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+// box shadows with hover
+@mixin box-shadow-hover() {
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	&:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
+}
+@mixin box-shadow-hover-6() {
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	&:hover { box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
+}
+@mixin box-shadow-hover-12() {
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	&:hover { box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); }
+}

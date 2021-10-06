@@ -1,6 +1,5 @@
 // Included below are all the defined variables from Bulma
 // Modify as needed, removing the !default attribute.
-
 // Colors
 $black:        hsl(0, 0%, 4%) !default;
 $black-bis:    hsl(0, 0%, 7%) !default;
@@ -24,11 +23,9 @@ $cyan:         hsl(204, 86%,  53%) !default;
 $blue:         hsl(217, 71%,  53%) !default;
 $purple:       hsl(271, 100%, 71%) !default;
 $red:          hsl(348, 100%, 61%) !default;
+$transparent: 			transparent !default;
 
-// Typography
-$family-sans-serif: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
-$family-monospace: monospace !default;
-$render-mode: optimizeLegibility !default;
+
 
 $size-1: 3rem !default;
 $size-2: 2.5rem !default;
@@ -138,3 +135,10 @@ $size-small: $size-7 !default;
 $size-normal: $size-6 !default;
 $size-medium: $size-5 !default;
 $size-large: $size-4 !default;
+
+// box shadows
+$box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$box-shadow-6: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$box-shadow-12: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$box-shadow-18: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$box-shadow-24: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);

@@ -1,0 +1,25 @@
+@import '../../utils/partials/helpers';
+.app-background { background-color: var(--app-background-color); }
+h1, h2, h3, h4, h5, p, li, #nav a:not(.button), th, td { color: var(--dynamic-copy-color) !important; }
+.table { background-color: var(--dynamic-table); }
+.table.is-striped tbody tr:not(.is-selected):nth-child(even) { background-color: var(--dynamic-table-row-stripped); }
+.table.is-hoverable.is-striped tbody tr:not(.is-selected):hover,
+.table.is-hoverable.is-striped tbody tr:not(.is-selected):hover:nth-child(even) { background-color: var(--dynamic-table-row-stripped-hover); }
+.modal .card { background-color: var(--dynamic-modal-card); }
+.navbar-burger { color: var(--dynamic-nav-burger-icon); }
+a {
+	@extend %animated-link;
+	&::after {
+		@extend %animated-link::after;
+	}
+	&:hover {
+		@extend %animated-link:hover;
+	}
+}
+
+/*-----------------------------------------------------
+	Responsive Layout
+-------------------------------------------------------*/
+@media (max-width: 1024px) {
+	.navbar-menu { background-color: var(--dynamic-modal-card); }
+}

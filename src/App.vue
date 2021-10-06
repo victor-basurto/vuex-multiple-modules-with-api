@@ -33,23 +33,22 @@ export default defineComponent({
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.value.length);	// set employees count
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);					// set loading state to false
 			
-			const currentTheme = (localStorage.getItem('theme') === 'dark') ? true : false;	// get theme from localStorage
-			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, currentTheme);		// set theme based on user preferences
-			
 			let bodyElement: HTMLElement = document.body;
 			bodyElement.classList.add('app-background');
-			
+			const darkLight = (!darkMode.value) ? 'light' : 'dark';
+			document.documentElement.setAttribute('theme', darkLight);
 		});
 		// Watch for `DarkMode` changes and set changes to `localStorage`
 		watch(darkMode, () => {
 			let htmlElement = document.documentElement;
-			if (darkMode.value) {
-				localStorage.setItem('theme', 'dark');
-				htmlElement.setAttribute('theme', 'dark');
-			} else {
+			if (!darkMode.value) {
 				localStorage.setItem('theme', 'light');
 				htmlElement.setAttribute('theme', 'light');
+				return;
 			}
+			localStorage.setItem('theme', 'dark');
+			htmlElement.setAttribute('theme', 'dark');
+			
 		})
 		return { 
 			darkMode

@@ -1,0 +1,19 @@
+.set-transparent { background-color: transparent !important; }
+%animated-link {
+	display: inline-block;
+	color: var(--dynamic-links-color);
+
+	&:hover { color: var(--dynamic-links-color-hover); }
+}
+%animated-link::after {
+	content: "";
+	display: block;
+	width: 0;
+	height: 2px;
+	transition: width .3s;
+	background-color: var(--dynamic-links-color-hover);
+}
+%animated-link:hover::after {
+	width: 100%;
+	transition: width .3s;
+}

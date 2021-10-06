@@ -16,6 +16,9 @@ export default function () {
 	// check if mobile device or desktop
 	store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_MOBILE_DEVICE, isMobile);
 	store.dispatch(ROOT_STORE.ACTIONS.UPDATE_VERSION, '0.0.1');
+	
+	const currentTheme = (localStorage.getItem('theme') === 'dark') ? true : false;	// get theme from localStorage
+	store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, currentTheme);		// set theme based on user preferences
 
 	return {
 		app,
