@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.4",
     "bulma": "^0.9.3",
+    "bulma-switch": "^2.0.0",
     "core-js": "^3.6.5",
     "mobile-device-detect": "^0.4.3",
     "vue": "^3.0.0",

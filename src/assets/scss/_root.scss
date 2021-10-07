@@ -1,0 +1,11 @@
+a:not(.button) {
+	@extend %animated-link;
+	transition: all .3s ease-in;
+	&::after {
+		@extend %animated-link::after;
+	}
+	&:hover {
+		@extend %animated-link:hover;
+		transition: all .3s ease-out;
+	}
+}

@@ -3,6 +3,7 @@
 @import "~bulma/sass/utilities/functions";
 @import "~bulma/sass/utilities/derived-variables";
 @import "~bulma";
+@import "~bulma-switch";
 // @import "~buefy/src/scss/buefy";
 
 // main.scss
@@ -13,3 +14,4 @@
 @import 'layout/module';
 @import 'components/module';
 // @import 'pages/module';		// -> uncomment once done
+@import 'root'

@@ -37,10 +37,16 @@
 								<span>Download</span>
 							</a>
 						</p>
-						<p class="control is-flex is-align-items-center">
-							<span class="icon" v-if="darkMode" @click="toggleDarkMode"><i class="fas fa-sun"></i></span>
-							<span class="icon" v-else @click="toggleDarkMode"><i class="fas fa-moon"></i></span>
-						</p>
+						<div class="field is-flex is-align-items-center darkmode-switcher">
+							<input id="toggleDarkModeSwitch" 
+								type="checkbox" 
+								name="toggleDarkModeSwitch" 
+								class="switch is-rounded is-outlined is-info" 
+								:checked="darkMode"
+								@click="toggleDarkMode"
+							>
+							<label for="toggleDarkModeSwitch"></label>
+						</div>
 					</div>
 				</div>
 			</div>

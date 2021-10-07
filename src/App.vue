@@ -1,5 +1,6 @@
 <template>
   <div id="nav">
+	  {{ darkMode }}
 	<NavigationMenu :darkMode="darkMode" />
   </div>
   <router-view/>
@@ -8,6 +9,7 @@
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, onMounted, watch } from 'vue';
 import useEmployeesApi from '@/services/use/useEmployeesApi'
+import useDarkMode from './use/useDarkMode';
 
 import { useStore } from '@/use/useStore';
 import { ROOT_STORE } from '@/store/constants';
@@ -22,8 +24,21 @@ export default defineComponent({
 	},
 	setup() {
 		const store = useStore();
-		const darkMode: ComputedRef<Boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.LIGHT_DARK_MODE]);	// get DarkMode from Global State
-		
+		/**
+		 * TODO:
+		 * 	Remove Custom FUnctions to its own composable
+		 */
+
+		// const darkMode: ComputedRef<Boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.LIGHT_DARK_MODE]);	// get DarkMode from Global State
+		// const setDarkLightMode = () => {
+		// 	const bodyElement: HTMLElement = document.body;
+		// 	bodyElement.classList.add('app-background');
+		// 	const darkLight = (!darkMode.value) ? 'light' : 'dark';
+		// 	document.documentElement.setAttribute('theme', darkLight);
+		// }
+		const { setDarkLightMode, darkMode } = useDarkMode();
+		setDarkLightMode();
+
 		onMounted(async () => {
 			const { success, message, data, fetchData } = useEmployeesApi();				// call API and feed Root State
 			await fetchData();																// -> feed current reactive ServerResponseState
@@ -32,24 +47,23 @@ export default defineComponent({
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES, data.value);				// set employees
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_EMPLOYEES_COUNT, data.value.length);	// set employees count
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, false);					// set loading state to false
-			
-			let bodyElement: HTMLElement = document.body;
-			bodyElement.classList.add('app-background');
-			const darkLight = (!darkMode.value) ? 'light' : 'dark';
-			document.documentElement.setAttribute('theme', darkLight);
 		});
+		/**
+		 * TODO:
+		 * 	Remove Custom FUnctions to its own composable
+		 */
 		// Watch for `DarkMode` changes and set changes to `localStorage`
-		watch(darkMode, () => {
-			let htmlElement = document.documentElement;
-			if (!darkMode.value) {
-				localStorage.setItem('theme', 'light');
-				htmlElement.setAttribute('theme', 'light');
-				return;
-			}
-			localStorage.setItem('theme', 'dark');
-			htmlElement.setAttribute('theme', 'dark');
+		// watch(darkMode, () => {
+		// 	let htmlElement = document.documentElement;
+		// 	if (!darkMode.value) {
+		// 		localStorage.setItem('theme', 'light');
+		// 		htmlElement.setAttribute('theme', 'light');
+		// 		return;
+		// 	}
+		// 	localStorage.setItem('theme', 'dark');
+		// 	htmlElement.setAttribute('theme', 'dark');
 			
-		})
+		// })
 		return { 
 			darkMode
 		}
