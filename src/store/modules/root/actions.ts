@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex';
 import { ROOT_STORE } from '@/store/constants';
-import { IRootState, IEmployeeData, IRootActionsTypes } from '@/store/interfaces';
+import { IRootState, IEmployeeData, IRootActionsTypes, DarkModeColorTypes } from '@/store/interfaces';
 /**
  * ROOT ACTIONS
  * @public ROOT ACTIONS
@@ -72,4 +72,7 @@ export const actions: ActionTree<IRootState, IRootState> & IRootActionsTypes = {
 	[ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE]({ commit }, payload: boolean) {
 		commit(ROOT_STORE.MUTATIONS.SET_LIGHT_DARK_MODE, payload);
 	},
+	[ROOT_STORE.ACTIONS.UPDATE_COLOR_SCHEME]({ commit }, payload: DarkModeColorTypes) {
+		commit(ROOT_STORE.MUTATIONS.SET_COLOR_SCHEME, payload);
+	}
 }

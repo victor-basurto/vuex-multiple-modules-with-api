@@ -1,4 +1,4 @@
-import { IRootState } from '@/store/interfaces';
+import { IRootState, DarkModeColors } from '@/store/interfaces';
 /**
  * Initialize Root State
  */
@@ -13,5 +13,6 @@ export const state: IRootState = {
 	showEditModal: false,
 	showModal: false,
 	editModalById: null,
-	darkMode: false
+	darkMode: false,
+	colorScheme: DarkModeColors.LIGHT
 }

@@ -16,7 +16,13 @@ export interface IRootState {
 	showEditModal: boolean;
 	showModal: boolean;
 	darkMode: boolean;
+	colorScheme: DarkModeColorTypes;
 	editModalById: number | null;
+}
+export type DarkModeColorTypes = 'light' | 'dark';
+export enum DarkModeColors {
+	LIGHT = 'light',
+	DARK = 'dark'
 }
 /**
  * SERVER RESPONSE interface
@@ -61,6 +67,7 @@ export interface IMergedState extends IRootState {
 	[ROOT_STORE.GETTERS.EDIT_MODAL](state: IRootState): boolean;
 	[ROOT_STORE.GETTERS.SHOW_CREATE_MODAL](state: IRootState): boolean;
 	[ROOT_STORE.GETTERS.LIGHT_DARK_MODE](state: IRootState): boolean;
+	[ROOT_STORE.GETTERS.COLOR_SCHEME](state: IRootState): DarkModeColorTypes;
 }
 /**
  * ROOT MUTATIONS `TYPE`
@@ -75,6 +82,7 @@ export type RootMutationsTypes<S = IRootState> = {
 	[ROOT_STORE.MUTATIONS.SET_EDIT_MODAL](state: S, payload: {showModal: boolean, id: number}): void;
 	[ROOT_STORE.MUTATIONS.SET_MODAL](state: S, payload: boolean): void;
 	[ROOT_STORE.MUTATIONS.SET_LIGHT_DARK_MODE](state: S, payload: boolean): void;
+	[ROOT_STORE.MUTATIONS.SET_COLOR_SCHEME](state: S, payload: DarkModeColorTypes): void;
 }
 /**
  * AugmentedActionContext for ROOT definition
@@ -104,6 +112,7 @@ export interface IRootActionsTypes {
 	[ROOT_STORE.ACTIONS.UPDATE_MODAL]({ commit }: AugmentedActionContextRoot, payload: boolean): void;
 	[ROOT_STORE.ACTIONS.UPDATE_EDIT_MODAL]({ commit }: AugmentedActionContextRoot, payload: {showModal: boolean, id: number}): void;
 	[ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE]({ commit }: AugmentedActionContextRoot, payload: boolean): void;
+	[ROOT_STORE.ACTIONS.UPDATE_COLOR_SCHEME]({ commit }: AugmentedActionContextRoot, payload: DarkModeColorTypes): void;
 }
 
 /********************* EMPLOYEE MODULE TYPES **************************/

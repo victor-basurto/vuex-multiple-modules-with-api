@@ -42,7 +42,7 @@
 								type="checkbox" 
 								name="toggleDarkModeSwitch" 
 								class="switch is-rounded is-outlined is-info" 
-								:checked="darkMode"
+								:checked="isDarkMode"
 								@click="toggleDarkMode"
 							>
 							<label for="toggleDarkModeSwitch"></label>
@@ -56,14 +56,15 @@
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, ref, toRef, unref } from 'vue';
 import { useStore } from '@/use/useStore';
-import { NAVBAR_STORE } from '@/store/constants';
+import { NAVBAR_STORE, ROOT_STORE } from '@/store/constants';
 import { mainNavMenu, INavigationMenu } from './INavigationMenu';
-import { ROOT_STORE } from '../../../store/constants';
+import { DarkModeColors } from '@/store/interfaces';
+
 
 export default defineComponent({
 	name: 'NavigationMenu',
 	props: {
-		darkMode: {
+		isDarkMode: {
 			type: Boolean,
 			required: true
 		}
@@ -71,6 +72,7 @@ export default defineComponent({
 	setup(props) {
 		const store = useStore();
 		const toggleNavbarFlag: ComputedRef<boolean> = computed(() => store.getters[NAVBAR_STORE.GETTERS.TOGGLE_NAVBAR]); // get navFlag from Global State
+		
 		/**
 		 * Toggle Navbar State - Smaller Screen
 		 * @description opens navbar on smaller screens
@@ -83,8 +85,12 @@ export default defineComponent({
 		 * @description set dark/light mode
 		 */
 		const toggleDarkMode = (): void => {
-			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, (!props.darkMode) ? true : false);
+			const isDark = ref(!props.isDarkMode ? true : false); // boolean
+			const preferredColor = isDark.value ? DarkModeColors.DARK : DarkModeColors.LIGHT;
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, isDark.value);
+			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_COLOR_SCHEME, preferredColor);
 		}
+		
 		
 		return {
 			mainNavMenu,

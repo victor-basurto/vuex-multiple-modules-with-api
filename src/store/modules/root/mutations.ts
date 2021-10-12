@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex';
 import { ROOT_STORE } from '@/store/constants';
-import { RootMutationsTypes, IRootState, IEmployeeData } from '@/store/interfaces';
+import { RootMutationsTypes, IRootState, IEmployeeData, DarkModeColorTypes } from '@/store/interfaces';
 
 /**
  * These are Global Mutations
@@ -58,5 +58,8 @@ export const mutations: MutationTree<IRootState> & RootMutationsTypes = {
 	},
 	[ROOT_STORE.MUTATIONS.SET_LIGHT_DARK_MODE](state: IRootState, payload: boolean): void {
 		state.darkMode = payload;
+	},
+	[ROOT_STORE.MUTATIONS.SET_COLOR_SCHEME](state: IRootState, payload: DarkModeColorTypes): void {
+		state.colorScheme = payload;
 	}
 }

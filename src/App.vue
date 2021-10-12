@@ -1,19 +1,18 @@
 <template>
   <div id="nav">
-	  {{ darkMode }}
-	<NavigationMenu :darkMode="darkMode" />
+	  {{ isDarkMode }}
+	<NavigationMenu :isDarkMode="isDarkMode" />
   </div>
   <router-view/>
 </template>
 
 <script lang="ts">
-import { computed, ComputedRef, defineComponent, onMounted, watch } from 'vue';
-import useEmployeesApi from '@/services/use/useEmployeesApi'
-import useDarkMode from './use/useDarkMode';
+import { computed, ComputedRef, defineComponent, onMounted, watch, Ref, unref } from 'vue';
 
+import useEmployeesApi from '@/services/use/useEmployeesApi';
 import { useStore } from '@/use/useStore';
 import { ROOT_STORE } from '@/store/constants';
-
+import { DarkModeColors, DarkModeColorTypes } from './store/interfaces';
 import { sleepHelper } from '@/shared/misc';
 
 import NavigationMenu from '@/components/base/menu/NavigationMenu.vue';
@@ -28,18 +27,17 @@ export default defineComponent({
 		 * TODO:
 		 * 	Remove Custom FUnctions to its own composable
 		 */
+		const isDarkMode: ComputedRef<boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.LIGHT_DARK_MODE]);	// get DarkMode from Global State
+		const colorScheme: ComputedRef<DarkModeColorTypes> = computed(() => store.getters[ROOT_STORE.GETTERS.COLOR_SCHEME]);
 
-		// const darkMode: ComputedRef<Boolean> = computed(() => store.getters[ROOT_STORE.GETTERS.LIGHT_DARK_MODE]);	// get DarkMode from Global State
-		// const setDarkLightMode = () => {
-		// 	const bodyElement: HTMLElement = document.body;
-		// 	bodyElement.classList.add('app-background');
-		// 	const darkLight = (!darkMode.value) ? 'light' : 'dark';
-		// 	document.documentElement.setAttribute('theme', darkLight);
-		// }
-		const { setDarkLightMode, darkMode } = useDarkMode();
-		setDarkLightMode();
-
+		function setDarkLightMode(isDarkMode : ComputedRef<boolean>): void {
+			const bodyElement: HTMLElement = document.body;
+			const theme = localStorage.getItem('theme') ?? colorScheme.value;
+			bodyElement.classList.add('app-background');
+			document.documentElement.setAttribute('theme', theme);
+		}
 		onMounted(async () => {
+			setDarkLightMode( isDarkMode );
 			const { success, message, data, fetchData } = useEmployeesApi();				// call API and feed Root State
 			await fetchData();																// -> feed current reactive ServerResponseState
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_IS_LOADING, true);						// set loading to true
@@ -52,20 +50,20 @@ export default defineComponent({
 		 * TODO:
 		 * 	Remove Custom FUnctions to its own composable
 		 */
-		// Watch for `DarkMode` changes and set changes to `localStorage`
-		// watch(darkMode, () => {
-		// 	let htmlElement = document.documentElement;
-		// 	if (!darkMode.value) {
-		// 		localStorage.setItem('theme', 'light');
-		// 		htmlElement.setAttribute('theme', 'light');
-		// 		return;
-		// 	}
-		// 	localStorage.setItem('theme', 'dark');
-		// 	htmlElement.setAttribute('theme', 'dark');
+		//Watch for `DarkMode` changes and set changes to `localStorage`
+		watch(isDarkMode, () => {
+			let htmlElement = document.documentElement;
+			if (!isDarkMode.value) {
+				localStorage.setItem('theme', DarkModeColors.LIGHT);
+				htmlElement.setAttribute('theme', DarkModeColors.LIGHT);
+				return;
+			}
+			localStorage.setItem('theme', DarkModeColors.DARK);
+			htmlElement.setAttribute('theme', DarkModeColors.DARK);
 			
-		// })
-		return { 
-			darkMode
+		})
+		return {
+			isDarkMode
 		}
 	},
 })

@@ -1,6 +1,6 @@
 import { GetterTree } from 'vuex';
 import { ROOT_STORE } from '@/store/constants';
-import { IRootGettersTypes, IRootState, IEmployeeData } from '@/store/interfaces';
+import { IRootGettersTypes, IRootState, IEmployeeData, DarkModeColorTypes } from '@/store/interfaces';
 
 /**
  * ROOT GETTERS
@@ -59,5 +59,6 @@ export const getters: GetterTree<IRootState, IRootState> & IRootGettersTypes = {
 	[ROOT_STORE.GETTERS.SHOW_CREATE_MODAL]: (state: IRootState): boolean => state.showCreateModal,
 	[ROOT_STORE.GETTERS.EDIT_MODAL]: (state: IRootState): boolean => state.showEditModal,
 	[ROOT_STORE.GETTERS.MODAL]: (state: IRootState): boolean => state.showModal,
-	[ROOT_STORE.GETTERS.LIGHT_DARK_MODE]: (state: IRootState): boolean => state.darkMode
+	[ROOT_STORE.GETTERS.LIGHT_DARK_MODE]: (state: IRootState): boolean => state.darkMode,
+	[ROOT_STORE.GETTERS.COLOR_SCHEME]: (state: IRootState): DarkModeColorTypes => state.colorScheme
 }
