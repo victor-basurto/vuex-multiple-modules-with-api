@@ -1,5 +1,5 @@
 import { ActionContext, DispatchOptions } from 'vuex';
-import { ROOT_STORE, EMPLOYEE_STORE, NAVBAR_STORE } from './constants';
+import { ROOT_STORE, EMPLOYEE_STORE, NAVBAR_STORE, USER_STORE } from './constants';
 /**
  * ROOT interface
  * TODO: 
@@ -43,15 +43,17 @@ export interface IEmployeeData {
 	id: number;
 	firstName: string;
 	lastName: string;
-	isActive: string;
-	isAdmin: string;
+	isActive: boolean;
+	isAdmin: boolean;
 }
+
 
 /**
  * Merge all State from Exposed Modules
  */
 export interface IMergedState extends IRootState {
 	employeeModule: EmployeeStateTypes;
+	navbarModule: NavbarStateTypes;
 }
 
 /**
@@ -121,8 +123,6 @@ export interface IRootActionsTypes {
  */
 export interface EmployeeStateTypes {
 	employee: IEmployeeData,
-	isActive: boolean;
-	isAdmin: boolean;
 	rootDispatch: boolean;
 }
 /**
@@ -196,6 +196,53 @@ export type AugmentedActionContextNavbar = {
 export interface INavbarActionTypes {
 	[NAVBAR_STORE.ACTIONS.UPDATE_TOGGLE_NABVAR]({ commit }: AugmentedActionContextNavbar, payload: boolean): void;
 }
+/********************* APPUSER MODULE TYPES **************************/
+/**
+ * UserProfile
+ */
+ export interface UserProfileStateTypes {
+	isLoggedIn: boolean;
+	userName: string;
+	email: string;
+	userData: IEmployeeData
+}
+/**
+ * USERPROFILE Getters
+ */
+export interface IUserProfileGetterTypes {
+	[USER_STORE.GETTERS.USER_EMAIL](state: UserProfileStateTypes): string;
+	[USER_STORE.GETTERS.USER_PROFILE](state: UserProfileStateTypes): IEmployeeData;
+	[USER_STORE.GETTERS.USER_IS_LOGGED_IN](state: UserProfileStateTypes): boolean;
+}
+/**
+ * USERPROFILE Mutations
+ */
+export type UserProfileMutationsType<S = UserProfileStateTypes> = {
+	[USER_STORE.MUTATIONS.SET_USER_EMAIL](state: S, payload: string): void;
+	[USER_STORE.MUTATIONS.SET_USER_IS_LOGGED_IN](state: S, payload: boolean): void;
+	[USER_STORE.MUTATIONS.SET_USER_PROFILE](state: S, payload: IEmployeeData): void;
+}
+/**
+ * AugmentedActionContext for USERPROFILE definition
+ */
+ export type AugmentedActionContextUserProfile = {
+	commit<K extends keyof UserProfileMutationsType>(
+		key: K,
+		payload: Parameters<UserProfileMutationsType[K]>[1]
+	): ReturnType<UserProfileMutationsType[K]>;
+} & Omit<ActionContext<UserProfileStateTypes, IRootState>, 'commit'>;
+
+
+
+/**
+ * USERPROFILE Actions `TYPE`
+ */
+export interface IUserProfileActionTypes {
+	[USER_STORE.ACTIONS.UPDATE_USER_EMAIL]({ commit }: AugmentedActionContextUserProfile, payload: string): void;
+	[USER_STORE.ACTIONS.UPDATE_USER_IS_LOGGED_IN]({ commit }: AugmentedActionContextUserProfile, payload: boolean): void;
+	[USER_STORE.ACTIONS.UPDATE_USER_PROFILE]({ commit }: AugmentedActionContextUserProfile, payload: IEmployeeData): void;
+}
+
 /**
  * Wrap Actions and Getters from Modules
  * into `StoreActions` and `StoreGetters`
@@ -203,8 +250,10 @@ export interface INavbarActionTypes {
 export interface StoreActions
 	extends IRootActionsTypes,
 		IEmployeeActionsTypes,
-		INavbarActionTypes {}
+		INavbarActionTypes,
+		IUserProfileActionTypes {}
 export interface StoreGetters
 	extends IRootGettersTypes,
 		IEmployeeGetterTypes,
-		INavbarGetterTypes {}
+		INavbarGetterTypes,
+		IUserProfileGetterTypes {}

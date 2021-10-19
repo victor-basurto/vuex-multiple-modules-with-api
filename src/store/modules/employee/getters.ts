@@ -28,14 +28,14 @@ export const getters: GetterTree<EmployeeStateTypes, IRootState> & IEmployeeGett
 	 * @param {EmployeeStateTypes} - Employee State
 	 * @returns boolean - true/false
 	 */
-	[EMPLOYEE_STORE.GETTERS.EMPLOYEE_IS_ADMIN]: (state: EmployeeStateTypes): boolean => state.isAdmin,
+	[EMPLOYEE_STORE.GETTERS.EMPLOYEE_IS_ADMIN]: (state: EmployeeStateTypes): boolean => state.employee.isAdmin,
 	 /**
 	 * Returns Employee 
 	 * 
 	 * @param {EmployeeStateTypes} - Employee State
 	 * @returns boolean - true/false
 	 */
-	[EMPLOYEE_STORE.GETTERS.EMPLOYEE_IS_ACTIVE]: (state: EmployeeStateTypes): boolean => state.isActive,
+	[EMPLOYEE_STORE.GETTERS.EMPLOYEE_IS_ACTIVE]: (state: EmployeeStateTypes): boolean => state.employee.isActive,
 	  /**
 	 * Returns Employee Object
 	 * 

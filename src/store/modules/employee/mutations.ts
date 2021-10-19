@@ -19,14 +19,14 @@ export const mutations: MutationTree<EmployeeStateTypes> & EmployeeMutationsType
 	 * @param {EmployeeStateTypes} - Employee State
 	 * @param {Boolean} payload - true/false
 	 */
-	[EMPLOYEE_STORE.MUTATIONS.SET_EMPLOYEE_IS_ACTIVE](state: EmployeeStateTypes, payload: boolean): void { state.isActive = payload; },
+	[EMPLOYEE_STORE.MUTATIONS.SET_EMPLOYEE_IS_ACTIVE](state: EmployeeStateTypes, payload: boolean): void { state.employee.isActive = payload; },
 	/**
 	 * Updates Employee `Admin Status`
 	 * 
 	 * @param {EmployeeStateTypes} - Employee State
 	 * @param {Boolean} payload - true/false
 	 */
-	[EMPLOYEE_STORE.MUTATIONS.SET_EMPLOYEE_IS_ADMIN](state: EmployeeStateTypes, payload: boolean): void { state.isAdmin = payload; },
+	[EMPLOYEE_STORE.MUTATIONS.SET_EMPLOYEE_IS_ADMIN](state: EmployeeStateTypes, payload: boolean): void { state.employee.isAdmin = payload; },
 	/**
 	 * Updates Root Dispatch from Child Component
 	 * 

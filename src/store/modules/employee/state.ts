@@ -5,7 +5,5 @@ import { EmployeeStateTypes, IEmployeeData } from '@/store/interfaces';
  */
 export const state: EmployeeStateTypes = {
 	employee: {} as IEmployeeData,
-	isActive: false,
-	isAdmin: false,
 	rootDispatch: false
 }

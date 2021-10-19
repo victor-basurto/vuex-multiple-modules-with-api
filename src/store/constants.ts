@@ -7,7 +7,10 @@ import {
 	EmployeeActions,
 	NavbarGetters,
 	NavbarMutations,
-	NavbarActions
+	NavbarActions,
+	UserProfileActions,
+	UserProfileGetters,
+	UserProfileMutations
 } from './enums';
 
 /**
@@ -35,4 +38,13 @@ export const NAVBAR_STORE = {
 	GETTERS: NavbarGetters,
 	MUTATIONS: NavbarMutations,
 	ACTIONS: NavbarActions
+}
+
+/**
+ * Index [GETTERS, MUTATIONS, ACTIONS] into USER_STORE
+ */
+ export const USER_STORE = {
+	GETTERS: UserProfileGetters,
+	MUTATIONS: UserProfileMutations,
+	ACTIONS: UserProfileActions
 }
