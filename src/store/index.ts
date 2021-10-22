@@ -20,9 +20,7 @@ type StoreModules = {
 	root: RootStoreModuleTypes;
 }
 
-export type Store = RootStoreModuleTypes<
-	Pick<StoreModules, 'root'>
-> &
+export type Store = RootStoreModuleTypes<Pick<StoreModules, 'root'>> &
 	NavbarStoreModuleTypes<Pick<StoreModules, 'navbarModule'>
 > &
 	UserProfileStoreModuleTypes<Pick<StoreModules, 'userProfileModule'>

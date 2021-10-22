@@ -14,9 +14,6 @@ export const actions: ActionTree<UserProfileStateTypes, IRootState> & IUserProfi
 	[USER_STORE.ACTIONS.UPDATE_USER_IS_LOGGED_IN]({ commit }, payload: boolean) {
 		commit(USER_STORE.MUTATIONS.SET_USER_IS_LOGGED_IN, payload);
 	},
-	[USER_STORE.ACTIONS.UPDATE_USER_PROFILE]({ commit }, payload: IEmployeeData) {
-		commit(USER_STORE.MUTATIONS.SET_USER_PROFILE, payload as IEmployeeData);
-	},
 	[USER_STORE.ACTIONS.UPDATED_USERNAME]({ commit }, payload: string) {
 		commit(USER_STORE.MUTATIONS.SET_USERNAME, payload);
 	}

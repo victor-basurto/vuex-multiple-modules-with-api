@@ -17,6 +17,5 @@ import {
 export const getters: GetterTree<UserProfileStateTypes, IRootState> & IUserProfileGetterTypes = {
 	[USER_STORE.GETTERS.USER_EMAIL]: (state: UserProfileStateTypes): string => state.email,
 	[USER_STORE.GETTERS.USER_IS_LOGGED_IN]: (state: UserProfileStateTypes): boolean => state.isLoggedIn,
-	[USER_STORE.GETTERS.USER_PROFILE]: (state: UserProfileStateTypes): IEmployeeData => state.userData,
 	[USER_STORE.GETTERS.USERNAME]: (state: UserProfileStateTypes): string => state.userName
 }

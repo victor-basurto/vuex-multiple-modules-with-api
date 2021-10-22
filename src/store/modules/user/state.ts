@@ -6,5 +6,4 @@ export const state: UserProfileStateTypes = {
 	isLoggedIn: false,
 	userName: '',
 	email: '',
-	userData: {} as IEmployeeData
 }

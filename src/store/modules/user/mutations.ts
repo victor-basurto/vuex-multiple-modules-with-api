@@ -12,9 +12,6 @@ export const mutations: MutationTree<UserProfileStateTypes> & UserProfileMutatio
 	[USER_STORE.MUTATIONS.SET_USER_IS_LOGGED_IN](state: UserProfileStateTypes, payload: boolean): void {
 		state.isLoggedIn = payload;
 	},
-	[USER_STORE.MUTATIONS.SET_USER_PROFILE](state: UserProfileStateTypes, payload: IEmployeeData): void {
-		state.userData = payload
-	},
 	[USER_STORE.MUTATIONS.SET_USERNAME](state: UserProfileStateTypes, payload: string): void {
 		state.userName = payload
 	}

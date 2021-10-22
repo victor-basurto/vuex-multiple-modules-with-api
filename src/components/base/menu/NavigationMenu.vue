@@ -25,18 +25,21 @@
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="field is-grouped">
-						<p class="control">
-							<input type="text" class="input is-primary" placeholder="username" />
-						</p>
-						<p class="control">
-							<input type="password" class="input is-primary" placeholder="password" />
-						</p>
-						<p class="control">
-							<a class="button is-primary is-outlined" target="_blank" href="#">
-								<span class="icon"><i class="far fa-user"></i></span>
-								<span>login</span>
-							</a>
-						</p>
+						<form @submit.prevent="submitInfo" class="is-flex is-align-items-center is-justify-content-space-around field login-section">
+							<p class="control">
+								<input type="username" class="input is-primary" placeholder="username" v-model="username" />
+							</p>
+							<p class="control">
+								<input type="password" class="input is-primary" placeholder="password" v-model="password" />
+							</p>
+							<p class="control">
+								<button class="button is-primary is-outlined">
+									<span class="icon"><i class="far fa-user"></i></span>
+									<span>login</span>
+								</button>
+							</p>
+
+						</form>
 						<div class="field is-flex is-align-items-center darkmode-switcher">
 							<input id="toggleDarkModeSwitch" 
 								type="checkbox" 
@@ -54,11 +57,14 @@
 	</nav>
 </template>
 <script lang="ts">
-import { computed, ComputedRef, defineComponent, ref, toRef, unref } from 'vue';
+import { computed, ComputedRef, defineComponent, reactive, ref, toRef, toRefs, unref, watch } from 'vue';
 import { useStore } from '@/use/useStore';
 import { NAVBAR_STORE, ROOT_STORE } from '@/store/constants';
 import { mainNavMenu, INavigationMenu } from './INavigationMenu';
 import { DarkModeColors } from '@/store/interfaces';
+import { UserProfileStateTypes } from '../../../store/interfaces';
+import useProfile from '../../../services/use/useProfileApi';
+import useProfileApi from '../../../services/use/useProfileApi';
 
 
 export default defineComponent({
@@ -70,6 +76,12 @@ export default defineComponent({
 		}
 	},
 	setup(props) {
+		const userProfileState = reactive({
+			username: '',
+			password: ''
+		});
+
+
 		const store = useStore();
 		const toggleNavbarFlag: ComputedRef<boolean> = computed(() => store.getters[NAVBAR_STORE.GETTERS.TOGGLE_NAVBAR]); // get navFlag from Global State
 		
@@ -90,14 +102,41 @@ export default defineComponent({
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_LIGHT_DARK_MODE, isDark.value);
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_COLOR_SCHEME, preferredColor);
 		}
+
+		const submitInfo = async () => {
+			if ( userProfileState.username === '' || userProfileState.password === '' ) {
+				return;
+			}
+			const { status, username, fetchUser, token, fetching } = useProfileApi();				// call API and feed Root State
+			await fetchUser(userProfileState);
+			userProfileState.username = '';
+			userProfileState.password = '';
+		}
+
+		// watch(isDarkMode, () => {
+		// 	let htmlElement = document.documentElement;
+		// 	if (!isDarkMode.value) {
+		// 		localStorage.setItem('theme', DarkModeColors.LIGHT);
+		// 		htmlElement.setAttribute('theme', DarkModeColors.LIGHT);
+		// 		return;
+		// 	}
+		// 	localStorage.setItem('theme', DarkModeColors.DARK);
+		// 	htmlElement.setAttribute('theme', DarkModeColors.DARK);
+			
+		// })
 		
 		
 		return {
 			mainNavMenu,
 			toggleNavbarFlag,
 			toggleNavbar,
-			toggleDarkMode
+			toggleDarkMode,
+			...toRefs(userProfileState),
+			submitInfo
 		}
 	}
 })
 </script>
+<style lang="scss" scoped>
+.login-section { min-width: 560px; }
+</style>
