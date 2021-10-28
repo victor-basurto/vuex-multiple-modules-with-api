@@ -25,7 +25,7 @@
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="field is-grouped">
-						<form @submit.prevent="submitInfo" class="is-flex is-align-items-center is-justify-content-space-around field login-section">
+						<form @submit.prevent="login" class="is-flex is-align-items-center is-justify-content-space-around field login-section">
 							<p class="control">
 								<input type="username" class="input is-primary" placeholder="username" v-model="username" />
 							</p>
@@ -65,7 +65,12 @@ import { DarkModeColors } from '@/store/interfaces';
 import { UserProfileStateTypes } from '../../../store/interfaces';
 import useProfile from '../../../services/use/useProfileApi';
 import useProfileApi from '../../../services/use/useProfileApi';
+import { USER_STORE } from '../../../store/constants';
 
+interface IUserActive {
+	username: string;
+	password: string;
+}
 
 export default defineComponent({
 	name: 'NavigationMenu',
@@ -76,7 +81,7 @@ export default defineComponent({
 		}
 	},
 	setup(props) {
-		const userProfileState = reactive({
+		const userProfileState = reactive<IUserActive>({
 			username: '',
 			password: ''
 		});
@@ -103,14 +108,28 @@ export default defineComponent({
 			store.dispatch(ROOT_STORE.ACTIONS.UPDATE_COLOR_SCHEME, preferredColor);
 		}
 
-		const submitInfo = async () => {
-			if ( userProfileState.username === '' || userProfileState.password === '' ) {
-				return;
-			}
-			const { status, username, fetchUser, token, fetching } = useProfileApi();				// call API and feed Root State
+		const login = async () => {
+			if ( userProfileState.username === '' || userProfileState.password === '' ) return;
+
+			const { status, username, fetchUser, token, fetching } = useProfileApi();	// call API and feed Root State
 			await fetchUser(userProfileState);
+
+			// console.log(status, username, token, fetching);
 			userProfileState.username = '';
 			userProfileState.password = '';
+
+			console.log(status.value)
+			if (status.value === 400 || status.value === 401) {
+				store.dispatch(USER_STORE.ACTIONS.UPDATE_USERNAME, '');
+				store.dispatch(USER_STORE.ACTIONS.UPDATE_USER_IS_LOGGED_IN, false);
+				return;
+			}
+			store.dispatch(USER_STORE.ACTIONS.UPDATE_USERNAME, username.value);
+			store.dispatch(USER_STORE.ACTIONS.UPDATE_USER_IS_LOGGED_IN, true);
+		}
+		const logout = () => {
+			store.dispatch(USER_STORE.ACTIONS.UPDATE_USER_IS_LOGGED_IN, false);
+			store.dispatch(USER_STORE.ACTIONS.UPDATE_USERNAME, null);
 		}
 
 		// watch(isDarkMode, () => {
@@ -132,7 +151,7 @@ export default defineComponent({
 			toggleNavbar,
 			toggleDarkMode,
 			...toRefs(userProfileState),
-			submitInfo
+			login
 		}
 	}
 })

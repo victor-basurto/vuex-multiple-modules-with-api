@@ -1,7 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosError, AxiosResponse } from 'axios';
 import { IServerResponse } from '@/store/interfaces';
 import { rootAPI } from './_rootApi';
 import { IUserProfileResponse } from './use/useProfileApi';
+
 
 export interface ILoginCreds {
 	username: string;
@@ -16,5 +17,15 @@ export default {
 	async fetchUserProfile(model: ILoginCreds): Promise<AxiosResponse<IUserProfileResponse>> {
 		return await rootAPI.post<IUserProfileResponse>(`/account/login`, { ...model })
 	},
+	// async fetchUserProfile(model: ILoginCreds): Promise<AxiosResponse<IUserProfileResponse>> {
+	// 	return await rootAPI.post<IUserProfileResponse>(`/account/login`, { ...model }).catch((error) => {
+	// 		if (error.response && error.response.status === 401) {
+	// 			return error;
+	// 		} else {
+	// 			console.log('no error');
+	// 		// Handle error however you want
+	// 		}
+	// 	})
+	// },
 	
 }

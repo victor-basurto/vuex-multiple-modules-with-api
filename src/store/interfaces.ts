@@ -203,7 +203,7 @@ export interface INavbarActionTypes {
  */
  export interface UserProfileStateTypes {
 	isLoggedIn: boolean;
-	userName: string;
+	userName: string | null;
 	email: string;
 }
 /**
@@ -212,7 +212,7 @@ export interface INavbarActionTypes {
 export interface IUserProfileGetterTypes {
 	[USER_STORE.GETTERS.USER_EMAIL](state: UserProfileStateTypes): string;
 	[USER_STORE.GETTERS.USER_IS_LOGGED_IN](state: UserProfileStateTypes): boolean;
-	[USER_STORE.GETTERS.USERNAME](state: UserProfileStateTypes): string;
+	[USER_STORE.GETTERS.USERNAME](state: UserProfileStateTypes): string | null;
 }
 /**
  * USERPROFILE Mutations
@@ -220,7 +220,7 @@ export interface IUserProfileGetterTypes {
 export type UserProfileMutationsType<S = UserProfileStateTypes> = {
 	[USER_STORE.MUTATIONS.SET_USER_EMAIL](state: S, payload: string): void;
 	[USER_STORE.MUTATIONS.SET_USER_IS_LOGGED_IN](state: S, payload: boolean): void;
-	[USER_STORE.MUTATIONS.SET_USERNAME](state: S, payload: string): void;
+	[USER_STORE.MUTATIONS.SET_USERNAME](state: S, payload: string | null): void;
 }
 /**
  * AugmentedActionContext for USERPROFILE definition
@@ -231,16 +231,13 @@ export type UserProfileMutationsType<S = UserProfileStateTypes> = {
 		payload: Parameters<UserProfileMutationsType[K]>[1]
 	): ReturnType<UserProfileMutationsType[K]>;
 } & Omit<ActionContext<UserProfileStateTypes, IRootState>, 'commit'>;
-
-
-
 /**
  * USERPROFILE Actions `TYPE`
  */
 export interface IUserProfileActionTypes {
 	[USER_STORE.ACTIONS.UPDATE_USER_EMAIL]({ commit }: AugmentedActionContextUserProfile, payload: string): void;
 	[USER_STORE.ACTIONS.UPDATE_USER_IS_LOGGED_IN]({ commit }: AugmentedActionContextUserProfile, payload: boolean): void;
-	[USER_STORE.ACTIONS.UPDATED_USERNAME]({ commit }: AugmentedActionContextUserProfile, payload: string): void;
+	[USER_STORE.ACTIONS.UPDATE_USERNAME]({ commit }: AugmentedActionContextUserProfile, payload: string | null): void;
 }
 
 /**

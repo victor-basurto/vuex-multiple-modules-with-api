@@ -12,18 +12,28 @@ export const store = createStore<IRootState>({
 	...root,
 	plugins: process.env.NODE_ENV === 'development' ? [createLogger()] : []
 });
-
+// type StoreModules = {
+// 	userProfileModule: UserProfileStoreModuleTypes;
+// 	employeeModule: EmployeeStoreModuleTypes;
+// 	navbarModule: NavbarStoreModuleTypes;
+// 	root: RootStoreModuleTypes;
+// }
 type StoreModules = {
-	userProfileModule: UserProfileStoreModuleTypes;
-	employeeModule: EmployeeStoreModuleTypes;
 	navbarModule: NavbarStoreModuleTypes;
+	employeeModule: EmployeeStoreModuleTypes;
+	userProfileModule: UserProfileStoreModuleTypes;
 	root: RootStoreModuleTypes;
 }
 
-export type Store = RootStoreModuleTypes<Pick<StoreModules, 'root'>> &
+/**
+ * TODO: Fix Order -> Root Should be last
+ */
+export type Store = RootStoreModuleTypes<
+	Pick<StoreModules, 'root'>
+> &
 	NavbarStoreModuleTypes<Pick<StoreModules, 'navbarModule'>
 > &
-	UserProfileStoreModuleTypes<Pick<StoreModules, 'userProfileModule'>
-> &
 	EmployeeStoreModuleTypes<Pick<StoreModules, 'employeeModule'>
+> &
+	UserProfileStoreModuleTypes<Pick<StoreModules, 'userProfileModule'>
 >;

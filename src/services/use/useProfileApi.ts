@@ -17,23 +17,37 @@ export default function() {
 		token: null,
 		username: '',
 		fetching: false,
-		status: 401
+		status: 200,
 	});
 
 	const fetchUser = async (req: ILoginCreds): Promise<void> => {
 		serverResponseState.fetching = true;
 		try {
-			const {data: {token, username, message}}: AxiosResponse<IUserProfileResponse> = await profileApiService.fetchUserProfile(req);
+			const {data: {token, username}}: AxiosResponse<IUserProfileResponse> = await profileApiService.fetchUserProfile(req);
 			serverResponseState.token = token;
 			serverResponseState.username = username;
-			console.log('submitted: ', username)
+			// console.log('submitted: ', username)
 		} catch(error) {
-			const err = error as AxiosError;
-			serverResponseState.status = err.response?.status
-			console.log('error couldnt login: ', err.request)
+			const  { response } = error as AxiosError;
+
+			serverResponseState.status = response?.status;
+			serverResponseState.message = response?.data;
 		} finally {
 			serverResponseState.fetching = false;
 		}
+	} 
+	const unfetchUser = async (): Promise<void> => {
+		serverResponseState.fetching = true;
+		try {
+			serverResponseState.message = 'logged out';
+			serverResponseState.username = '';
+			serverResponseState.token = null;
+			serverResponseState.status = 200;
+		} catch(error) {
+			serverResponseState.message = error as string;
+		} finally {                                                                                                                                                                  
+			serverResponseState.fetching = false;
+		};
 	}
 	return {
 		...toRefs(serverResponseState),
